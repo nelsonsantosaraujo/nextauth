@@ -47,7 +47,7 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>, options?: WithSSRAuthO
       return await fn(context)
     } catch (err) {
       console.log(err);
-      // if (err instanceof AuthTokenError) {
+      if (err instanceof AuthTokenError) {
         destroyCookie(context, '@nextauth.token')
         destroyCookie(context, '@nextauth.refreshToken')
     
@@ -57,7 +57,7 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>, options?: WithSSRAuthO
             permanent: false,
           }
         }
-      // }
+      }
     }
   }
 }
